@@ -5,5 +5,5 @@ services:
 env:
     - filebeat_ver=6.5.4
 
-install:
+script:
     - docker build -f Dockerfile -t honeynet/filebeat:$filebeat_ver .
