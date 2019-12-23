@@ -24,4 +24,5 @@ script:
 
 after_success:
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-    - docker push honeynet/filebeat:$filebeat_version
+    - export REPO=honeynet/filebeat
+    - docker push $REPO:$filebeat_version
