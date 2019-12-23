@@ -1,3 +1,4 @@
+ARG filebeat_version=6.5.4
 FROM docker.elastic.co/beats/filebeat:${filebeat_version}
 USER root
 RUN usermod -u 2000 filebeat && \

@@ -20,4 +20,4 @@ env:
     - filebeat_version=6.0.1
 
 script:
-    - docker build -f Dockerfile -t honeynet/filebeat:$filebeat_version .
+    - docker build -f Dockerfile -t honeynet/filebeat:$filebeat_version --build-arg filebeat_version=$filebeat_version .
