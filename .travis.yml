@@ -3,21 +3,21 @@ services:
     - docker
 
 env:
-    - filebeat_ver=7.5.1
-    - filebeat_ver=7.4.2
-    - filebeat_ver=7.3.2
-    - filebeat_ver=7.2.1
-    - filebeat_ver=7.1.1
-    - filebeat_ver=7.0.1
-    - filebeat_ver=6.8.6
-    - filebeat_ver=6.7.2
-    - filebeat_ver=6.6.2
-    - filebeat_ver=6.5.4
-    - filebeat_ver=6.4.3
-    - filebeat_ver=6.3.4
-    - filebeat_ver=6.2.4
-    - filebeat_ver=6.1.4
-    - filebeat_ver=6.0.1
+    - filebeat_version=7.5.1
+    - filebeat_version=7.4.2
+    - filebeat_version=7.3.2
+    - filebeat_version=7.2.1
+    - filebeat_version=7.1.1
+    - filebeat_version=7.0.1
+    - filebeat_version=6.8.6
+    - filebeat_version=6.7.2
+    - filebeat_version=6.6.2
+    - filebeat_version=6.5.4
+    - filebeat_version=6.4.3
+    - filebeat_version=6.3.4
+    - filebeat_version=6.2.4
+    - filebeat_version=6.1.4
+    - filebeat_version=6.0.1
 
 script:
-    - docker build -f Dockerfile -t honeynet/filebeat:$filebeat_ver .
+    - docker build -f Dockerfile -t honeynet/filebeat:$filebeat_version .
