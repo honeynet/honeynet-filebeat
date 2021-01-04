@@ -3,6 +3,8 @@ services:
     - docker
 
 env:
+    - filebeat_version=7.10.1
+    - filebeat_version=7.10.0
     - filebeat_version=7.9.3
     - filebeat_version=7.9.2
     - filebeat_version=7.9.1
