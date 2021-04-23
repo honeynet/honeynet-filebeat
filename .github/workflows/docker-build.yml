@@ -46,4 +46,4 @@ jobs:
           push: false
           tags: honeynet/filebeat:${{ matrix.filebeat_version }}
           build-args:
-            filebeat_version: ${{ matrix.filebeat_version }}
+            - filebeat_version: ${{ matrix.filebeat_version }}
