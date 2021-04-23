@@ -50,3 +50,6 @@ jobs:
           tags: honeynet/filebeat:${{ matrix.filebeat_version }}
           build-args: |
             filebeat_version=${{ matrix.filebeat_version }}
+      
+      - name: Image digest
+        run: echo ${{ steps.docker_build.outputs.digest }}
