@@ -16,6 +16,19 @@ jobs:
       fail-fast: false
       matrix:
         include:
+          - filebeat_version: 8.2.0
+          - filebeat_version: 8.1.3
+          - filebeat_version: 8.1.2
+          - filebeat_version: 8.1.1
+          - filebeat_version: 8.1.0
+          - filebeat_version: 8.0.1
+          - filebeat_version: 8.0.0
+          - filebeat_version: 7.17.3
+          - filebeat_version: 7.17.2
+          - filebeat_version: 7.17.1
+          - filebeat_version: 7.17.0
+          - filebeat_version: 7.16.3
+          - filebeat_version: 7.16.2
           - filebeat_version: 7.16.1
           - filebeat_version: 7.16.0
           - filebeat_version: 7.15.2
@@ -36,22 +49,6 @@ jobs:
           - filebeat_version: 7.11.0
           - filebeat_version: 7.10.1
           - filebeat_version: 7.10.0
-          - filebeat_version: 7.9.3
-          - filebeat_version: 7.9.2
-          - filebeat_version: 7.9.1
-          - filebeat_version: 7.9.0
-          - filebeat_version: 7.8.1
-          - filebeat_version: 7.8.0
-          - filebeat_version: 7.7.1
-          - filebeat_version: 7.7.0
-          - filebeat_version: 7.6.2
-          - filebeat_version: 7.6.1
-          - filebeat_version: 7.5.2
-          - filebeat_version: 7.4.2
-          - filebeat_version: 7.3.2
-          - filebeat_version: 7.2.1
-          - filebeat_version: 7.1.1
-          - filebeat_version: 7.0.1
 
     steps:
       - name: Set up Docker Buildx
