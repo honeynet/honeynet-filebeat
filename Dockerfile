@@ -1,7 +1,7 @@
 ARG filebeat_version=6.5.4
 FROM docker.elastic.co/beats/filebeat:${filebeat_version}
 USER root
-RUN  microdnf -y update &&  microdnf clean all
+RUN  dnf -y update &&  dnf clean all
 RUN usermod -u 2000 filebeat && \
     groupmod -g 2000 filebeat && \
     find /usr/share/filebeat -uid 1000 -exec chown 2000 {} + && \
