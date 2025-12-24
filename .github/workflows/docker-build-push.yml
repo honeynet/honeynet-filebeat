@@ -15,7 +15,7 @@ jobs:
       matrix:
         include:
           - filebeat_version: 9.2.3
-          - filebeat_version: 8.19.9
+          # - filebeat_version: 8.19.9
           # - filebeat_version: 7.16.2
           # - filebeat_version: 7.16.1
           # - filebeat_version: 7.16.0

@@ -1,4 +1,4 @@
-ARG filebeat_version=6.5.4
+ARG filebeat_version=9.2.3
 FROM docker.elastic.co/beats/filebeat:${filebeat_version}
 USER root
 RUN  microdnf -y update &&  microdnf clean all
