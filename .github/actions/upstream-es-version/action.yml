@@ -1,0 +1,59 @@
+---
+name: Resolve upstream Elasticsearch version
+description: >-
+  Reads the ES_VER pin from upstream T-Pot's Elasticsearch Dockerfile. Filebeat
+  is built at that exact version so the shipper always matches the
+  Elasticsearch it feeds.
+
+inputs:
+  repository:
+    description: Upstream repository to read from.
+    required: false
+    default: telekom-security/tpotce
+  ref:
+    description: Branch or tag to read.
+    required: false
+    default: master
+
+outputs:
+  version:
+    description: The resolved Elasticsearch version, e.g. 9.3.5.
+    value: ${{ steps.resolve.outputs.version }}
+
+runs:
+  using: composite
+  steps:
+    - name: Read ES_VER from the upstream Dockerfile
+      id: resolve
+      shell: bash
+      env:
+        DOCKERFILE_URL: >-
+          https://raw.githubusercontent.com/${{ inputs.repository }}/${{ inputs.ref }}/docker/elk/elasticsearch/Dockerfile
+      run: |
+        set -euo pipefail
+
+        dockerfile="$(curl -fsSL --retry 3 --retry-delay 5 "$DOCKERFILE_URL")"
+
+        version="$(printf '%s\n' "$dockerfile" \
+          | sed -n 's/^[[:space:]]*ENV[[:space:]]\+ES_VER=\([0-9][0-9.]*\).*/\1/p' \
+          | head -n1)"
+
+        # An empty or malformed result means upstream changed how the version
+        # is pinned. Fail loudly rather than publishing a `latest` or an empty
+        # tag that silently diverges from Elasticsearch.
+        if [ -z "$version" ]; then
+          echo "::error::Could not find ES_VER in $DOCKERFILE_URL."
+          echo "::error::Upstream may have changed how Elasticsearch is pinned."
+          printf '%s\n' "$dockerfile" | grep -n 'ES_VER' || true
+          exit 1
+        fi
+
+        if ! printf '%s' "$version" | grep -Eq '^[0-9]+\.[0-9]+\.[0-9]+$'; then
+          echo "::error::ES_VER '$version' is not a three part version."
+          exit 1
+        fi
+
+        echo "version=$version" >> "$GITHUB_OUTPUT"
+        echo "Upstream Elasticsearch version: $version"
+        echo "### Filebeat \`$version\`" >> "$GITHUB_STEP_SUMMARY"
+        echo "Resolved from \`$DOCKERFILE_URL\`" >> "$GITHUB_STEP_SUMMARY"

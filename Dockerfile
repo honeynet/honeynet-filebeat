@@ -1,12 +1,15 @@
-ARG filebeat_version=9.2.3
+# Version of the filebeat base image. CI resolves this from the ES_VER pin in
+# upstream T-Pot's docker/elk/elasticsearch/Dockerfile, so the shipper always
+# matches the Elasticsearch it feeds. The default is a fallback for local
+# builds and is not what CI publishes.
+ARG filebeat_version=9.3.5
 FROM docker.elastic.co/beats/filebeat:${filebeat_version}
 USER root
-RUN  microdnf -y update &&  microdnf clean all
+RUN microdnf -y update && microdnf clean all
 RUN usermod -u 2000 filebeat && \
     groupmod -g 2000 filebeat && \
     find /usr/share/filebeat -uid 1000 -exec chown 2000 {} + && \
     find /usr/share/filebeat -gid 1000 -exec chgrp 2000 {} + && \
-    mkdir /usr/share/filebeat/conf.d && \
-    mkdir /usr/share/filebeat/pki && \
+    mkdir -p /usr/share/filebeat/conf.d /usr/share/filebeat/pki && \
     chown -R 2000:2000 /usr/share/filebeat/conf.d /usr/share/filebeat/pki
 USER 2000
